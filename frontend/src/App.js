@@ -97,11 +97,13 @@ export const Lotus = ({ className = "" }) => (
   </svg>
 );
 
-export const Wordmark = ({ dark = false }) => (
-  <span className={`wordmark ${dark ? "wordmark-dark" : ""}`}>
-    <span className="wordmark-script">Emibi</span>
-    <span className="wordmark-caps">BEAUTÉ</span>
-  </span>
+const Logo = ({ className = "", testId }) => (
+  <img
+    src="/images/logo.jpg"
+    alt="Emibi Beauté — Nail art e cura delle unghie a Firenze"
+    className={`logo-badge ${className}`}
+    data-testid={testId}
+  />
 );
 
 const GoldRule = ({ className = "" }) => (
@@ -137,7 +139,7 @@ const Header = () => {
     <header className="site-header" data-testid="site-header">
       <div className="header-inner">
         <a href="#home" className="header-brand" data-testid="header-logo-link" onClick={() => setOpen(false)}>
-          <Wordmark />
+          <Logo className="header-logo" testId="header-logo" />
         </a>
         <nav className="header-nav" aria-label="Navigazione principale">
           {NAV.map((n) => (
@@ -209,11 +211,8 @@ const SectionHead = ({ eyebrow, title }) => (
 const Hero = () => (
   <section id="home" className="hero" data-testid="hero-section">
     <div className="hero-content reveal revealed">
-      <Lotus className="hero-lotus" />
-      <h1 className="hero-logo" aria-label="Emibi Beauté">
-        <span className="hero-script">Emibi</span>
-        <span className="hero-caps">BEAUTÉ</span>
-      </h1>
+      <Logo className="hero-logo-img" testId="hero-logo" />
+      <h1 className="sr-only">Emibi Beauté</h1>
       <p className="hero-claim" data-testid="hero-claim">
         Il tuo momento di bellezza.
       </p>
@@ -397,7 +396,7 @@ const DoveSiamo = () => (
 const Footer = () => (
   <footer className="site-footer" data-testid="site-footer">
     <div className="footer-inner">
-      <Wordmark dark />
+      <Logo className="footer-logo" testId="footer-logo" />
       <GoldRule className="footer-rule" />
       <p className="footer-address" data-testid="footer-address">
         Via Pietro Gobetti 5, Firenze

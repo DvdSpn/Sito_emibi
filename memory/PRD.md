@@ -22,6 +22,7 @@ Landing page one-page in italiano per "Emibi Beauté", salone di nail art e cura
 - CTA Instagram ovunque; footer con indirizzo e copyright
 
 ## Implementato (22/09/2026)
+- Logo originale fornito dall'utente integrato in header, hero e footer (+ favicon), ottimizzato a 640px/41 KB
 - Tutte e 7 le sezioni con testi esatti dal documento fornito
 - Header sticky + hamburger mobile (touch-friendly 48px), navigazione ad ancore
 - Palette e tipografia come da brief; linee dorate decorative con loto SVG
@@ -30,10 +31,8 @@ Landing page one-page in italiano per "Emibi Beauté", salone di nail art e cura
 - Verificato: nessuno scroll orizzontale su mobile (390px), link Instagram corretti, nessun errore console bloccante
 
 ## Backlog
-- P0: sostituire il wordmark tipografico con il file logo reale (appena fornito)
 - P1: foto aggiuntive in galleria; orari definitivi al posto di "indicativi"
 - P2: carosello galleria mobile; meta OG image per anteprima social; prenotazione online quando richiesta
 
 ## Prossimi task
-- Caricare il logo originale e inserirlo in header/hero/footer
 - Aggiungere altre foto lavori se fornite
