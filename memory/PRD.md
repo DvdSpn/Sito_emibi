@@ -26,7 +26,8 @@ Landing page one-page in italiano per "Emibi Beauté", salone di nail art e cura
 
 ## Implementato
 - 22/09/2026: landing one-page con 7 sezioni, logo originale integrato (header/hero/footer/favicon)
-- 25/09/2026: correzione indirizzo (Camucia — Cortona AR) ovunque + mappa e meta/title; nuova palette marrone/beige; struttura a 2 pagine (Home con hero + "La nostra storia" integrale + Dove siamo; Servizi con 4 card categoria senza prezzi + nota listino + galleria); CTA WhatsApp primaria ovunque; menu con routing Home/Servizi e bottone WhatsApp sempre visibile anche su mobile
+- 25/09/2026: correzione indirizzo (Camucia — Cortona AR) ovunque + mappa e meta/title; nuova palette marrone/beige; struttura a 2 pagine (Home con hero + "La nostra storia" + Dove siamo; Servizi con card categoria + galleria); CTA WhatsApp primaria ovunque; menu con routing e bottone WhatsApp sempre visibile
+- 25/09/2026 (bis): slider prima/dopo trascinabile (clip-path, pointer events, tastiera) con foto reali placeholder pronte a essere sostituite dalla coppia definitiva; storia riformattata in 4 paragrafi con frasi chiave in corsivo e chiusura "manifesto" (font più grande, interlinea ampia, separatore decorativo); servizi in card ad accordion con descrizione per ogni trattamento; fix contrasto copyright footer (colore esplicito #D9D1C5); link WhatsApp aggiunto nel menu mobile
 
 ## Backlog
 - P1: foto aggiuntive in galleria; orari definitivi al posto di "indicativi"

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BrowserRouter, Routes, Route, Link, NavLink, useLocation } from "react-router-dom";
 import "@/App.css";
 import {
@@ -8,11 +8,13 @@ import {
   MapPin,
   Clock,
   ChevronDown,
+  ChevronsLeftRight,
   MessageCircle,
 } from "lucide-react";
 
 const IG_URL = "https://www.instagram.com/emibi.beaute/";
 const WA_URL = "https://wa.me/393315978742";
+const WA_LABEL = "+39 331 597 8742";
 const ADDRESS = "Via Pietro Gobetti 5, Camucia — Cortona (AR)";
 const MAP_SRC =
   "https://www.google.com/maps?q=Via+Pietro+Gobetti+5,+Camucia,+Cortona+AR,+Italia&output=embed";
@@ -26,20 +28,20 @@ const GALLERIA = [
 
 const SERVIZI = [
   {
-    id: "mani-piedi",
-    title: "Mani e Piedi",
+    id: "manicure-pedicure",
+    title: "Manicure & Pedicure",
     img: "/images/nail-1.jpg",
     alt: "Manicure glitter con dettagli gioiello realizzata da Emibi Beauté",
     items: [
-      "Manicure",
-      "Manicure spa",
-      "Semipermanente",
-      "Ricostruzione unghie",
-      "Refill",
-      "Copertura in gel",
-      "Pedicure",
-      "Pedicure SPA Luxury",
-      "Nail art",
+      { name: "Manicure", desc: "Cura completa delle mani, con finiture precise e curate." },
+      { name: "Manicure spa", desc: "Rituale rigenerante con esfoliazione e idratazione profonda." },
+      { name: "Semipermanente", desc: "Colore brillante e impeccabile che dura a lungo." },
+      { name: "Ricostruzione unghie", desc: "Unghie forti e naturali, su forma e lunghezza desiderate." },
+      { name: "Refill", desc: "Mantenimento della ricostruzione, per un risultato sempre perfetto." },
+      { name: "Copertura in gel", desc: "Rinforzo dell'unghia naturale con effetto luminoso." },
+      { name: "Pedicure", desc: "Cura completa dei piedi, morbidi e ordinati in ogni stagione." },
+      { name: "Pedicure SPA Luxury", desc: "Trattamento completo con scrub, maschera e massaggio rilassante." },
+      { name: "Nail art", desc: "Decorazioni su misura, dal minimal al più ricercato." },
     ],
   },
   {
@@ -47,7 +49,10 @@ const SERVIZI = [
     title: "Corpo",
     img: "/images/corpo.jpg",
     alt: "Massaggio rilassante in ambiente spa dai toni caldi",
-    items: ["Massaggio rilassante", "Massaggio con coppettazione"],
+    items: [
+      { name: "Massaggio rilassante", desc: "Scioglie le tensioni e regala un benessere profondo." },
+      { name: "Massaggio con coppettazione", desc: "Tecnica antica che drena e riattiva la circolazione." },
+    ],
   },
   {
     id: "viso",
@@ -55,9 +60,9 @@ const SERVIZI = [
     img: "/images/viso.jpg",
     alt: "Trattamento viso professionale in centro estetico",
     items: [
-      "Pulizia viso",
-      "Pulizia viso con macchinario",
-      "Trattamenti viso personalizzati",
+      { name: "Pulizia viso", desc: "Detersione profonda per una pelle luminosa e ossigenata." },
+      { name: "Pulizia viso con macchinario", desc: "Pulizia profonda potenziata dalla tecnologia." },
+      { name: "Trattamenti viso personalizzati", desc: "Percorsi su misura per le esigenze della tua pelle." },
     ],
   },
   {
@@ -65,27 +70,11 @@ const SERVIZI = [
     title: "Sopracciglia e Ciglia",
     img: "/images/ciglia.jpg",
     alt: "Dettaglio sguardo con ciglia e sopracciglia curate",
-    items: ["Laminazione ciglia", "Laminazione sopracciglia"],
+    items: [
+      { name: "Laminazione ciglia", desc: "Ciglia incurvate e nutrite, per uno sguardo aperto e naturale." },
+      { name: "Laminazione sopracciglia", desc: "Sopracciglia ordinate, piene e definite a lungo." },
+    ],
   },
-];
-
-const STORY_PARAS = [
-  "Da sempre ho avuto ben chiaro ciò che desideravo costruire per il mio futuro, ma non avrei mai immaginato che un giorno quel sogno sarebbe diventato realtà.",
-  "Mi chiamo Stella, ho 26 anni e sono cresciuta in una famiglia che mi ha trasmesso valori fondamentali come l'indipendenza, la determinazione e l'importanza dell'impegno. Valori che, nel tempo, sono diventati parte integrante del mio modo di essere e di lavorare.",
-  "Nel 2021 ho intrapreso il mio percorso professionale nel mondo dell'estetica presso New Line Academy di Firenze. È stato l'inizio di un cammino fatto di formazione, passione e continua ricerca della crescita personale e professionale.",
-  "Terminato il percorso di formazione, ho scelto di continuare a investire su me stessa, approfondendo le mie competenze attraverso corsi avanzati e nuove esperienze. Credo infatti che la professionalità nasca dalla volontà di non smettere mai di imparare, evolversi e perfezionarsi, con l'obiettivo di offrire a ogni persona che si affida a me un servizio attento, qualificato e sempre aggiornato.",
-  "Oggi, tutto questo percorso mi ha portata fino a qui: alla nascita di Emibi.",
-  "Ho scelto questo nome unendo una parte del nome di mia figlia, la persona più importante della mia vita. In queste poche lettere racchiudo quindi qualcosa di profondamente personale: il mio sogno, il percorso che mi ha condotta fin qui e una parte del motivo per cui ho trovato la forza e la determinazione per trasformarlo in realtà.",
-  "Emibi nasce così, dall'incontro tra un sogno coltivato nel tempo e i valori in cui credo: passione, cura, bellezza e dedizione.",
-  "Ho immaginato questo centro come un luogo intimo e accogliente, in cui ogni persona possa sentirsi ascoltata, valorizzata e accompagnata nella cura di sé. Uno spazio pensato per dedicarsi del tempo, ritrovare il proprio benessere e concedersi un momento in cui sentirsi semplicemente bene.",
-  "Perché Emibi non è soltanto un'attività.",
-];
-
-const STORY_EMPH = [
-  "È una storia.",
-  "È un sogno diventato realtà.",
-  "È il frutto di un percorso.",
-  "Ed è la testimonianza di una donna e di una mamma che ha scelto di credere in se stessa.",
 ];
 
 const Lotus = ({ className = "" }) => (
@@ -203,6 +192,16 @@ const Header = () => {
             Servizi
           </NavLink>
           <a
+            href={WA_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mobile-nav-link"
+            data-testid="mobile-nav-whatsapp-link"
+          >
+            <MessageCircle size={17} strokeWidth={1.6} />
+            WhatsApp — {WA_LABEL}
+          </a>
+          <a
             href={IG_URL}
             target="_blank"
             rel="noopener noreferrer"
@@ -272,17 +271,46 @@ const Storia = () => (
   <section id="storia" className="section section-tinted" data-testid="storia-section">
     <SectionHead eyebrow="La nostra storia" title="Un sogno diventato realtà" />
     <div className="story reveal">
-      {STORY_PARAS.map((p, i) => (
-        <p key={i} className="story-para" data-testid={`story-para-${i}`}>
-          {p}
-        </p>
-      ))}
+      <p className="story-para" data-testid="story-para-0">
+        Da sempre ho avuto ben chiaro ciò che desideravo costruire per il mio
+        futuro, ma non avrei mai immaginato che un giorno quel sogno sarebbe
+        diventato realtà. Mi chiamo Stella, ho 26 anni e sono cresciuta in una
+        famiglia che mi ha trasmesso valori fondamentali come l'indipendenza, la
+        determinazione e l'importanza dell'impegno, diventati parte del mio modo
+        di essere e di lavorare.
+      </p>
+      <p className="story-para" data-testid="story-para-1">
+        Nel 2021 ho intrapreso il mio percorso professionale nel mondo
+        dell'estetica presso New Line Academy di Firenze: un cammino fatto di
+        formazione, passione e continua crescita. Da allora non ho mai smesso di
+        investire su me stessa, tra corsi avanzati e nuove esperienze, perché
+        credo che la professionalità nasca dalla volontà di{" "}
+        <em className="story-hl">non smettere mai di imparare, evolversi e perfezionarsi</em>.
+      </p>
+      <p className="story-para" data-testid="story-para-2">
+        Oggi, tutto questo percorso mi ha portata fino a qui:{" "}
+        <em className="story-hl">alla nascita di Emibi</em>. Ho scelto questo
+        nome unendo una parte del nome di mia figlia, la persona più importante
+        della mia vita: in queste poche lettere racchiudo il mio sogno, il
+        percorso che mi ha condotta fin qui e la forza per trasformarlo in
+        realtà.
+      </p>
+      <p className="story-para" data-testid="story-para-3">
+        Emibi nasce così, dall'incontro tra un sogno coltivato nel tempo e i
+        valori in cui credo: passione, cura, bellezza e dedizione. L'ho
+        immaginato come un luogo intimo e accogliente, in cui ogni persona possa
+        sentirsi ascoltata, valorizzata e accompagnata nella cura di sé. Perché
+        Emibi non è soltanto un'attività.
+      </p>
       <div className="story-emph" data-testid="story-emph">
-        {STORY_EMPH.map((line, i) => (
-          <p key={i} className="story-emph-line">
-            {line}
-          </p>
-        ))}
+        <GoldRule className="story-emph-rule" />
+        <p className="story-emph-line">È una storia.</p>
+        <p className="story-emph-line">È un sogno diventato realtà.</p>
+        <p className="story-emph-line">È il frutto di un percorso.</p>
+        <p className="story-emph-line">
+          Ed è la testimonianza di una donna e di una mamma che ha scelto di
+          credere in se stessa.
+        </p>
       </div>
       <div className="story-sign">
         <span className="story-sign-script">Stella</span>
@@ -344,6 +372,67 @@ const DoveSiamo = () => (
   </section>
 );
 
+const BeforeAfter = () => {
+  const [pos, setPos] = useState(50);
+  const ref = useRef(null);
+  const dragging = useRef(false);
+  const update = (clientX) => {
+    const r = ref.current.getBoundingClientRect();
+    setPos(Math.min(96, Math.max(4, ((clientX - r.left) / r.width) * 100)));
+  };
+  const onKey = (e) => {
+    if (e.key === "ArrowLeft") setPos((p) => Math.max(4, p - 5));
+    if (e.key === "ArrowRight") setPos((p) => Math.min(96, p + 5));
+  };
+  return (
+    <div
+      ref={ref}
+      className="ba"
+      role="slider"
+      aria-label="Confronto prima e dopo"
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-valuenow={Math.round(pos)}
+      tabIndex={0}
+      data-testid="before-after-slider"
+      onPointerDown={(e) => {
+        dragging.current = true;
+        ref.current.setPointerCapture(e.pointerId);
+        update(e.clientX);
+      }}
+      onPointerMove={(e) => dragging.current && update(e.clientX)}
+      onPointerUp={() => (dragging.current = false)}
+      onPointerCancel={() => (dragging.current = false)}
+      onKeyDown={onKey}
+    >
+      <img src="/images/nail-1.jpg" alt="Dopo — french con glitter" draggable={false} />
+      <img
+        src="/images/nail-4.jpg"
+        alt="Prima — unghie al naturale"
+        draggable={false}
+        style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}
+      />
+      <span className="ba-label ba-label-before">Prima</span>
+      <span className="ba-label ba-label-after">Dopo</span>
+      <div className="ba-handle" style={{ left: `${pos}%` }} aria-hidden="true">
+        <div className="ba-knob">
+          <ChevronsLeftRight size={18} strokeWidth={1.6} />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const PrimaDopo = () => (
+  <section className="section" data-testid="prima-dopo-section">
+    <SectionHead eyebrow="Prima &amp; Dopo" title="La differenza è nei dettagli" />
+    <div className="ba-wrap reveal">
+      <BeforeAfter />
+      <p className="ba-note">Trascina il cursore per vedere la trasformazione.</p>
+    </div>
+  </section>
+);
+
 const Gallery = () => (
   <div className="gallery-wrap">
     <SectionHead eyebrow="Galleria" title="I nostri lavori" />
@@ -374,34 +463,53 @@ const HomePage = () => {
   );
 };
 
+const ServiziAccordion = () => {
+  const [openId, setOpenId] = useState("manicure-pedicure");
+  return (
+    <div className="acc-list">
+      {SERVIZI.map((s) => {
+        const open = openId === s.id;
+        return (
+          <article key={s.id} className={`acc-card${open ? " acc-open" : ""}`} data-testid={`accordion-card-${s.id}`}>
+            <button
+              className="acc-head"
+              aria-expanded={open}
+              data-testid={`accordion-trigger-${s.id}`}
+              onClick={() => setOpenId(open ? null : s.id)}
+            >
+              <img src={s.img} alt={s.alt} className="acc-thumb" loading="lazy" />
+              <span className="acc-head-text">
+                <span className="acc-title">{s.title}</span>
+                <span className="acc-sub">{s.items.length} trattamenti</span>
+              </span>
+              <ChevronDown size={22} strokeWidth={1.4} className="acc-chev" />
+            </button>
+            <div className="acc-panel">
+              <div className="acc-panel-inner">
+                <ul className="svc-list" data-testid={`accordion-panel-${s.id}`}>
+                  {s.items.map((item) => (
+                    <li key={item.name}>
+                      <span className="svc-name">{item.name}</span>
+                      <span className="svc-desc">{item.desc}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  );
+};
+
 const ServiziPage = () => {
   useReveal();
   return (
     <main data-testid="servizi-page">
       <section className="section section-tinted page-top" data-testid="servizi-section">
         <SectionHead eyebrow="Servizi" title="I nostri trattamenti" />
-        <div className="svc-grid">
-          {SERVIZI.map((s, i) => (
-            <article
-              key={s.id}
-              className="svc-card reveal"
-              style={{ transitionDelay: `${i * 90}ms` }}
-              data-testid={`service-card-${s.id}`}
-            >
-              <div className="svc-img">
-                <img src={s.img} alt={s.alt} loading="lazy" />
-              </div>
-              <div className="svc-body">
-                <h3 className="svc-title">{s.title}</h3>
-                <ul className="svc-list">
-                  {s.items.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            </article>
-          ))}
-        </div>
+        <ServiziAccordion />
         <p className="services-note reveal" data-testid="services-note">
           Listino prezzi completo disponibile in salone — scrivici per un
           preventivo personalizzato.
@@ -419,7 +527,8 @@ const ServiziPage = () => {
           </a>
         </div>
       </section>
-      <section className="section" data-testid="galleria-section">
+      <PrimaDopo />
+      <section className="section section-tinted" data-testid="galleria-section">
         <Gallery />
       </section>
     </main>
@@ -443,7 +552,7 @@ const Footer = () => (
           data-testid="footer-whatsapp-link"
         >
           <MessageCircle size={18} strokeWidth={1.5} />
-          WhatsApp
+          {WA_LABEL}
         </a>
         <a
           href={IG_URL}
