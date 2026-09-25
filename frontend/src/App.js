@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { BrowserRouter, Routes, Route, Link, NavLink, useLocation } from "react-router-dom";
 import "@/App.css";
 import {
   Instagram,
@@ -6,49 +7,15 @@ import {
   X,
   MapPin,
   Clock,
-  Hand,
-  Footprints,
-  Sparkles,
-  Brush,
-  Gem,
-  Armchair,
-  Wand2,
-  Crown,
   ChevronDown,
+  MessageCircle,
 } from "lucide-react";
 
 const IG_URL = "https://www.instagram.com/emibi.beaute/";
-
-const NAV = [
-  { label: "Chi siamo", href: "#chi-siamo", id: "chi-siamo" },
-  { label: "Servizi", href: "#servizi", id: "servizi" },
-  { label: "Galleria", href: "#galleria", id: "galleria" },
-  { label: "Perché noi", href: "#perche-noi", id: "perche-noi" },
-  { label: "Dove siamo", href: "#dove-siamo", id: "dove-siamo" },
-];
-
-const SERVIZI = [
-  {
-    icon: Hand,
-    title: "Manicure",
-    text: "Cura e bellezza delle mani, con finiture curate nei minimi dettagli.",
-  },
-  {
-    icon: Footprints,
-    title: "Pedicure",
-    text: "Trattamenti completi per piedi morbidi e impeccabili tutto l'anno.",
-  },
-  {
-    icon: Sparkles,
-    title: "Ricostruzione unghie",
-    text: "Unghie forti e naturali, personalizzate su forma e lunghezza desiderate.",
-  },
-  {
-    icon: Brush,
-    title: "Nail art",
-    text: "Decorazioni su misura, dal minimal al più ricercato, per ogni occasione.",
-  },
-];
+const WA_URL = "https://wa.me/393315978742";
+const ADDRESS = "Via Pietro Gobetti 5, Camucia — Cortona (AR)";
+const MAP_SRC =
+  "https://www.google.com/maps?q=Via+Pietro+Gobetti+5,+Camucia,+Cortona+AR,+Italia&output=embed";
 
 const GALLERIA = [
   { src: "/images/nail-1.jpg", caption: "Manicure glitter con dettagli gioiello" },
@@ -57,30 +24,71 @@ const GALLERIA = [
   { src: "/images/nail-3.jpg", caption: "Pedicure French, curata nei dettagli" },
 ];
 
-const PERCHE = [
+const SERVIZI = [
   {
-    icon: Gem,
-    title: "Cura artigianale",
-    text: "Ogni lavoro è fatto a mano, con attenzione al dettaglio.",
+    id: "mani-piedi",
+    title: "Mani e Piedi",
+    img: "/images/nail-1.jpg",
+    alt: "Manicure glitter con dettagli gioiello realizzata da Emibi Beauté",
+    items: [
+      "Manicure",
+      "Manicure spa",
+      "Semipermanente",
+      "Ricostruzione unghie",
+      "Refill",
+      "Copertura in gel",
+      "Pedicure",
+      "Pedicure SPA Luxury",
+      "Nail art",
+    ],
   },
   {
-    icon: Armchair,
-    title: "Ambiente accogliente",
-    text: "Uno spazio pensato per il tuo relax.",
+    id: "corpo",
+    title: "Corpo",
+    img: "/images/corpo.jpg",
+    alt: "Massaggio rilassante in ambiente spa dai toni caldi",
+    items: ["Massaggio rilassante", "Massaggio con coppettazione"],
   },
   {
-    icon: Wand2,
-    title: "Personalizzazione",
-    text: "Ogni trattamento su misura per te.",
+    id: "viso",
+    title: "Viso",
+    img: "/images/viso.jpg",
+    alt: "Trattamento viso professionale in centro estetico",
+    items: [
+      "Pulizia viso",
+      "Pulizia viso con macchinario",
+      "Trattamenti viso personalizzati",
+    ],
   },
   {
-    icon: Crown,
-    title: "Eleganza senza tempo",
-    text: "Uno stile curato, mai banale.",
+    id: "sopracciglia-ciglia",
+    title: "Sopracciglia e Ciglia",
+    img: "/images/ciglia.jpg",
+    alt: "Dettaglio sguardo con ciglia e sopracciglia curate",
+    items: ["Laminazione ciglia", "Laminazione sopracciglia"],
   },
 ];
 
-export const Lotus = ({ className = "" }) => (
+const STORY_PARAS = [
+  "Da sempre ho avuto ben chiaro ciò che desideravo costruire per il mio futuro, ma non avrei mai immaginato che un giorno quel sogno sarebbe diventato realtà.",
+  "Mi chiamo Stella, ho 26 anni e sono cresciuta in una famiglia che mi ha trasmesso valori fondamentali come l'indipendenza, la determinazione e l'importanza dell'impegno. Valori che, nel tempo, sono diventati parte integrante del mio modo di essere e di lavorare.",
+  "Nel 2021 ho intrapreso il mio percorso professionale nel mondo dell'estetica presso New Line Academy di Firenze. È stato l'inizio di un cammino fatto di formazione, passione e continua ricerca della crescita personale e professionale.",
+  "Terminato il percorso di formazione, ho scelto di continuare a investire su me stessa, approfondendo le mie competenze attraverso corsi avanzati e nuove esperienze. Credo infatti che la professionalità nasca dalla volontà di non smettere mai di imparare, evolversi e perfezionarsi, con l'obiettivo di offrire a ogni persona che si affida a me un servizio attento, qualificato e sempre aggiornato.",
+  "Oggi, tutto questo percorso mi ha portata fino a qui: alla nascita di Emibi.",
+  "Ho scelto questo nome unendo una parte del nome di mia figlia, la persona più importante della mia vita. In queste poche lettere racchiudo quindi qualcosa di profondamente personale: il mio sogno, il percorso che mi ha condotta fin qui e una parte del motivo per cui ho trovato la forza e la determinazione per trasformarlo in realtà.",
+  "Emibi nasce così, dall'incontro tra un sogno coltivato nel tempo e i valori in cui credo: passione, cura, bellezza e dedizione.",
+  "Ho immaginato questo centro come un luogo intimo e accogliente, in cui ogni persona possa sentirsi ascoltata, valorizzata e accompagnata nella cura di sé. Uno spazio pensato per dedicarsi del tempo, ritrovare il proprio benessere e concedersi un momento in cui sentirsi semplicemente bene.",
+  "Perché Emibi non è soltanto un'attività.",
+];
+
+const STORY_EMPH = [
+  "È una storia.",
+  "È un sogno diventato realtà.",
+  "È il frutto di un percorso.",
+  "Ed è la testimonianza di una donna e di una mamma che ha scelto di credere in se stessa.",
+];
+
+const Lotus = ({ className = "" }) => (
   <svg
     viewBox="0 0 64 40"
     fill="none"
@@ -100,7 +108,7 @@ export const Lotus = ({ className = "" }) => (
 const Logo = ({ className = "", testId }) => (
   <img
     src="/images/logo.jpg"
-    alt="Emibi Beauté — Nail art e cura delle unghie a Firenze"
+    alt="Emibi Beauté — Nail art ed estetica a Camucia, Cortona"
     className={`logo-badge ${className}`}
     data-testid={testId}
   />
@@ -133,64 +141,76 @@ const useReveal = () => {
   }, []);
 };
 
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+};
+
+const navClass =
+  (base) =>
+  ({ isActive }) =>
+    `${base}${isActive ? ` ${base}-active` : ""}`;
+
 const Header = () => {
   const [open, setOpen] = useState(false);
+  const { pathname } = useLocation();
+  useEffect(() => setOpen(false), [pathname]);
   return (
     <header className="site-header" data-testid="site-header">
       <div className="header-inner">
-        <a href="#home" className="header-brand" data-testid="header-logo-link" onClick={() => setOpen(false)}>
+        <Link to="/" className="header-brand" data-testid="header-logo-link">
           <Logo className="header-logo" testId="header-logo" />
-        </a>
+        </Link>
         <nav className="header-nav" aria-label="Navigazione principale">
-          {NAV.map((n) => (
-            <a key={n.id} href={n.href} className="nav-link" data-testid={`nav-link-${n.id}`}>
-              {n.label}
-            </a>
-          ))}
+          <NavLink to="/" end className={navClass("nav-link")} data-testid="nav-link-home">
+            Home
+          </NavLink>
+          <NavLink to="/servizi" className={navClass("nav-link")} data-testid="nav-link-servizi">
+            Servizi
+          </NavLink>
+        </nav>
+        <div className="header-actions">
           <a
-            href={IG_URL}
+            href={WA_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="nav-cta"
-            data-testid="nav-instagram-cta"
+            data-testid="header-whatsapp-cta"
           >
-            <Instagram size={15} strokeWidth={1.6} />
-            Instagram
+            <MessageCircle size={15} strokeWidth={1.6} />
+            WhatsApp
           </a>
-        </nav>
-        <button
-          className="hamburger"
-          aria-label={open ? "Chiudi menu" : "Apri menu"}
-          aria-expanded={open}
-          data-testid="hamburger-menu-button"
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? <X size={26} strokeWidth={1.4} /> : <Menu size={26} strokeWidth={1.4} />}
-        </button>
+          <button
+            className="hamburger"
+            aria-label={open ? "Chiudi menu" : "Apri menu"}
+            aria-expanded={open}
+            data-testid="hamburger-menu-button"
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? <X size={26} strokeWidth={1.4} /> : <Menu size={26} strokeWidth={1.4} />}
+          </button>
+        </div>
       </div>
       {open && (
         <nav className="mobile-nav" aria-label="Menu mobile" data-testid="mobile-nav">
-          {NAV.map((n) => (
-            <a
-              key={n.id}
-              href={n.href}
-              className="mobile-nav-link"
-              data-testid={`mobile-nav-link-${n.id}`}
-              onClick={() => setOpen(false)}
-            >
-              {n.label}
-            </a>
-          ))}
+          <NavLink to="/" end className={navClass("mobile-nav-link")} data-testid="mobile-nav-link-home">
+            Home
+          </NavLink>
+          <NavLink to="/servizi" className={navClass("mobile-nav-link")} data-testid="mobile-nav-link-servizi">
+            Servizi
+          </NavLink>
           <a
             href={IG_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="mobile-nav-link mobile-nav-cta"
-            data-testid="mobile-nav-instagram-cta"
-            onClick={() => setOpen(false)}
+            data-testid="mobile-nav-instagram-link"
           >
             <Instagram size={17} strokeWidth={1.6} />
-            Scrivici su Instagram
+            @emibi.beaute
           </a>
         </nav>
       )}
@@ -200,16 +220,14 @@ const Header = () => {
 
 const SectionHead = ({ eyebrow, title }) => (
   <div className="section-head reveal">
-    <p className="eyebrow" data-testid={`eyebrow-${eyebrow.toLowerCase().replace(/\s/g, "-")}`}>
-      {eyebrow}
-    </p>
+    <p className="eyebrow">{eyebrow}</p>
     <h2 className="section-title">{title}</h2>
     <GoldRule />
   </div>
 );
 
 const Hero = () => (
-  <section id="home" className="hero" data-testid="hero-section">
+  <section className="hero" data-testid="hero-section">
     <div className="hero-content reveal revealed">
       <Logo className="hero-logo-img" testId="hero-logo" />
       <h1 className="sr-only">Emibi Beauté</h1>
@@ -218,132 +236,65 @@ const Hero = () => (
       </p>
       <GoldRule className="hero-rule" />
       <p className="hero-sub">
-        Manicure, pedicure, ricostruzione e nail art a Firenze, in Via Pietro
-        Gobetti 5. Cura dei dettagli, eleganza in ogni tocco.
+        Nail art ed estetica a Camucia — Cortona (AR), in Via Pietro Gobetti 5.
+        Cura dei dettagli, eleganza in ogni tocco.
       </p>
-      <a
-        href={IG_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="btn-gold"
-        data-testid="hero-instagram-cta"
-      >
-        <Instagram size={18} strokeWidth={1.6} />
-        Scrivici su Instagram
-      </a>
+      <div className="hero-ctas">
+        <a
+          href={WA_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-primary"
+          data-testid="hero-whatsapp-cta"
+        >
+          <MessageCircle size={18} strokeWidth={1.6} />
+          Scrivici su WhatsApp
+        </a>
+        <a
+          href={IG_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-outline"
+          data-testid="hero-instagram-cta"
+        >
+          <Instagram size={17} strokeWidth={1.6} />
+          @emibi.beaute
+        </a>
+      </div>
     </div>
-    <a href="#chi-siamo" className="scroll-hint" aria-label="Scorri alla sezione Chi siamo" data-testid="hero-scroll-hint">
+    <a href="#storia" className="scroll-hint" aria-label="Scorri alla sezione La nostra storia" data-testid="hero-scroll-hint">
       <ChevronDown size={22} strokeWidth={1.2} />
     </a>
   </section>
 );
 
-const ChiSiamo = () => (
-  <section id="chi-siamo" className="section" data-testid="chi-siamo-section">
-    <SectionHead eyebrow="Chi siamo" title="Una passione che diventa cura" />
-    <div className="about-grid">
-      <div className="about-text reveal">
-        <p className="about-lead">
-          Emibi Beauté nasce dalla passione di{" "}
-          <em>Stela Nako</em> per la cura delle mani e dei piedi, tra precisione
-          tecnica e attenzione ai dettagli.
+const Storia = () => (
+  <section id="storia" className="section section-tinted" data-testid="storia-section">
+    <SectionHead eyebrow="La nostra storia" title="Un sogno diventato realtà" />
+    <div className="story reveal">
+      {STORY_PARAS.map((p, i) => (
+        <p key={i} className="story-para" data-testid={`story-para-${i}`}>
+          {p}
         </p>
-        <p className="about-body">
-          Ogni trattamento è pensato per farti sentire curata, in un ambiente
-          caldo ed elegante, pensato per te.
-        </p>
-        <div className="about-sign">
-          <span className="about-sign-script">Stela Nako</span>
-          <span className="about-sign-role">Fondatrice &amp; Nail Artist</span>
-        </div>
+      ))}
+      <div className="story-emph" data-testid="story-emph">
+        {STORY_EMPH.map((line, i) => (
+          <p key={i} className="story-emph-line">
+            {line}
+          </p>
+        ))}
       </div>
-      <div className="about-photo reveal" style={{ transitionDelay: "120ms" }}>
-        <img src="/images/nail-4.jpg" alt="Nail art bianco su base naturale realizzata da Emibi Beauté" loading="lazy" />
-        <div className="about-photo-frame" aria-hidden="true" />
+      <div className="story-sign">
+        <span className="story-sign-script">Stella</span>
+        <span className="story-sign-role">Fondatrice di Emibi Beauté</span>
       </div>
-    </div>
-  </section>
-);
-
-const Servizi = () => (
-  <section id="servizi" className="section section-tinted" data-testid="servizi-section">
-    <SectionHead eyebrow="Servizi" title="Trattamenti su misura" />
-    <div className="services-grid">
-      {SERVIZI.map((s, i) => (
-        <article
-          key={s.title}
-          className="service-card reveal"
-          style={{ transitionDelay: `${i * 90}ms` }}
-          data-testid={`service-card-${i}`}
-        >
-          <s.icon className="service-icon" size={30} strokeWidth={1.1} />
-          <h3 className="service-title">{s.title}</h3>
-          <p className="service-text">{s.text}</p>
-        </article>
-      ))}
-    </div>
-    <p className="services-note reveal" data-testid="services-note">
-      Prezzi su richiesta — scrivici per un preventivo personalizzato.
-    </p>
-  </section>
-);
-
-const Galleria = () => (
-  <section id="galleria" className="section" data-testid="galleria-section">
-    <SectionHead eyebrow="Galleria" title="I nostri lavori" />
-    <div className="gallery-grid">
-      {GALLERIA.map((g, i) => (
-        <figure
-          key={g.src}
-          className="gallery-item reveal"
-          style={{ transitionDelay: `${i * 80}ms` }}
-          data-testid={`gallery-item-${i}`}
-        >
-          <img src={g.src} alt={g.caption} loading="lazy" />
-          <figcaption className="gallery-caption">{g.caption}</figcaption>
-        </figure>
-      ))}
-    </div>
-    <div className="gallery-cta reveal">
-      <a
-        href={IG_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="btn-outline"
-        data-testid="gallery-instagram-cta"
-      >
-        <Instagram size={17} strokeWidth={1.6} />
-        Altri lavori su Instagram
-      </a>
-    </div>
-  </section>
-);
-
-const PercheNoi = () => (
-  <section id="perche-noi" className="section section-tinted" data-testid="perche-noi-section">
-    <SectionHead eyebrow="Perché sceglierci" title="L'eleganza è nei dettagli" />
-    <div className="why-grid">
-      {PERCHE.map((p, i) => (
-        <div
-          key={p.title}
-          className="why-item reveal"
-          style={{ transitionDelay: `${i * 90}ms` }}
-          data-testid={`why-item-${i}`}
-        >
-          <div className="why-icon-ring">
-            <p.icon size={24} strokeWidth={1.1} />
-          </div>
-          <h3 className="why-title">{p.title}</h3>
-          <p className="why-text">{p.text}</p>
-        </div>
-      ))}
     </div>
   </section>
 );
 
 const DoveSiamo = () => (
   <section id="dove-siamo" className="section" data-testid="dove-siamo-section">
-    <SectionHead eyebrow="Dove siamo" title="Ti aspettiamo a Firenze" />
+    <SectionHead eyebrow="Dove siamo" title="Ti aspettiamo a Camucia" />
     <div className="where-grid">
       <div className="where-info reveal">
         <div className="where-block">
@@ -353,7 +304,7 @@ const DoveSiamo = () => (
             <p className="where-value" data-testid="where-address">
               Emibi Beauté
               <br />
-              Via Pietro Gobetti 5, Firenze
+              {ADDRESS}
             </p>
           </div>
         </div>
@@ -370,20 +321,20 @@ const DoveSiamo = () => (
           </div>
         </div>
         <a
-          href={IG_URL}
+          href={WA_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="btn-gold"
-          data-testid="where-instagram-cta"
+          className="btn-primary"
+          data-testid="where-whatsapp-cta"
         >
-          <Instagram size={18} strokeWidth={1.6} />
-          Scrivici su Instagram
+          <MessageCircle size={18} strokeWidth={1.6} />
+          Scrivici su WhatsApp
         </a>
       </div>
       <div className="where-map reveal" style={{ transitionDelay: "120ms" }}>
         <iframe
-          title="Mappa — Emibi Beauté, Via Pietro Gobetti 5, Firenze"
-          src="https://www.google.com/maps?q=Via+Pietro+Gobetti+5,+Firenze,+Italia&output=embed"
+          title="Mappa — Emibi Beauté, Via Pietro Gobetti 5, Camucia, Cortona"
+          src={MAP_SRC}
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
           data-testid="where-map-iframe"
@@ -393,44 +344,137 @@ const DoveSiamo = () => (
   </section>
 );
 
+const Gallery = () => (
+  <div className="gallery-wrap">
+    <SectionHead eyebrow="Galleria" title="I nostri lavori" />
+    <div className="gallery-grid" data-testid="gallery-grid">
+      {GALLERIA.map((g, i) => (
+        <figure
+          key={g.src}
+          className="gallery-item reveal"
+          style={{ transitionDelay: `${i * 80}ms` }}
+          data-testid={`gallery-item-${i}`}
+        >
+          <img src={g.src} alt={g.caption} loading="lazy" />
+          <figcaption className="gallery-caption">{g.caption}</figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+);
+
+const HomePage = () => {
+  useReveal();
+  return (
+    <main data-testid="home-page">
+      <Hero />
+      <Storia />
+      <DoveSiamo />
+    </main>
+  );
+};
+
+const ServiziPage = () => {
+  useReveal();
+  return (
+    <main data-testid="servizi-page">
+      <section className="section section-tinted page-top" data-testid="servizi-section">
+        <SectionHead eyebrow="Servizi" title="I nostri trattamenti" />
+        <div className="svc-grid">
+          {SERVIZI.map((s, i) => (
+            <article
+              key={s.id}
+              className="svc-card reveal"
+              style={{ transitionDelay: `${i * 90}ms` }}
+              data-testid={`service-card-${s.id}`}
+            >
+              <div className="svc-img">
+                <img src={s.img} alt={s.alt} loading="lazy" />
+              </div>
+              <div className="svc-body">
+                <h3 className="svc-title">{s.title}</h3>
+                <ul className="svc-list">
+                  {s.items.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            </article>
+          ))}
+        </div>
+        <p className="services-note reveal" data-testid="services-note">
+          Listino prezzi completo disponibile in salone — scrivici per un
+          preventivo personalizzato.
+        </p>
+        <div className="gallery-cta reveal">
+          <a
+            href={WA_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary"
+            data-testid="services-whatsapp-cta"
+          >
+            <MessageCircle size={18} strokeWidth={1.6} />
+            Richiedi un preventivo
+          </a>
+        </div>
+      </section>
+      <section className="section" data-testid="galleria-section">
+        <Gallery />
+      </section>
+    </main>
+  );
+};
+
 const Footer = () => (
   <footer className="site-footer" data-testid="site-footer">
     <div className="footer-inner">
       <Logo className="footer-logo" testId="footer-logo" />
       <GoldRule className="footer-rule" />
       <p className="footer-address" data-testid="footer-address">
-        Via Pietro Gobetti 5, Firenze
+        {ADDRESS}
       </p>
-      <a
-        href={IG_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="footer-ig"
-        data-testid="footer-instagram-link"
-      >
-        <Instagram size={18} strokeWidth={1.5} />
-        @emibi.beaute
-      </a>
+      <div className="footer-contacts">
+        <a
+          href={WA_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="footer-contact"
+          data-testid="footer-whatsapp-link"
+        >
+          <MessageCircle size={18} strokeWidth={1.5} />
+          WhatsApp
+        </a>
+        <a
+          href={IG_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="footer-contact"
+          data-testid="footer-instagram-link"
+        >
+          <Instagram size={18} strokeWidth={1.5} />
+          @emibi.beaute
+        </a>
+      </div>
       <p className="footer-copy">© 2026 Emibi Beauté — Tutti i diritti riservati</p>
     </div>
   </footer>
 );
 
 function App() {
-  useReveal();
   return (
-    <div className="App">
-      <Header />
-      <main>
-        <Hero />
-        <ChiSiamo />
-        <Servizi />
-        <Galleria />
-        <PercheNoi />
-        <DoveSiamo />
-      </main>
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <ScrollToTop />
+      <div className="App">
+        <Header />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/servizi" element={<ServiziPage />} />
+          <Route path="*" element={<HomePage />} />
+        </Routes>
+        <Footer />
+      </div>
+    </BrowserRouter>
   );
 }
 

@@ -1,0 +1,174 @@
+{
+  "brand_identity": {
+    "name": "Emibi Beauté",
+    "business_type": "Centro Estetico e Nail Art",
+    "location": "Camucia — Cortona (AR)",
+    "aesthetic": "Warm Luxury & Cozy Elegance",
+    "tone": "Accogliente, professionale, raffinato, toni caldi"
+  },
+  "color_palette": {
+    "background_main": "#F4F1EC",
+    "background_alt": "#E4DED4",
+    "text_primary": "#603C26",
+    "accent_primary": "#603C26",
+    "hover_primary": "#45301F",
+    "border_subtle": "rgba(96, 60, 38, 0.15)",
+    "card_bg": "#FFFFFF",
+    "rules": "Non usare mai nero puro #000000 o grigi freddi. Utilizzare la palette calda marrone/beige definita dall'utente. Mantenere contrasto WCAG AA elevato per la leggibilità del testo marrone su sfondi beige e bianchi caldi."
+  },
+  "typography": {
+    "font_files_type": ".js",
+    "headings": {
+      "font_family": "Cormorant Garamond, Serif",
+      "style": "font-serif tracking-tight text-[#603C26]"
+    },
+    "body": {
+      "font_family": "Plus Jakarta Sans / Montserrat, Sans-Serif",
+      "style": "font-sans text-[#603C26]/90"
+    },
+    "hierarchy": {
+      "hero_h1": "text-4xl sm:text-5xl lg:text-6xl font-serif font-medium leading-tight",
+      "section_h2": "text-2xl sm:text-3xl lg:text-4xl font-serif font-medium",
+      "card_h3": "text-xl sm:text-2xl font-serif font-semibold",
+      "body_text": "text-base leading-relaxed"
+    }
+  },
+  "layout_and_spacing": {
+    "section_padding": "py-16 md:py-24 px-4 sm:px-6 lg:px-8",
+    "card_aspect_ratio": "aspect-[3/4]",
+    "card_image_fit": "object-cover w-full h-full",
+    "card_grid": "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8",
+    "gallery_grid": "grid grid-cols-2 md:grid-cols-4 gap-4"
+  },
+  "image_urls": {
+    "corpo": [
+      {
+        "url": "https://images.unsplash.com/photo-1639162906614-0603b0ae95fd?crop=entropy&cs=srgb&fm=jpg&ixid=M3w8NjA1ODh8MHwxfHNlYXJjaHwyfHxzcGElMjBtYXNzYWdlJTIwYm9keSUyMHRyZWF0bWVudCUyMHJlbGF4JTIwd2FybXxlbnwwfHx8fDE3OTAzMTgxNjN8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Massaggio rilassante schiena in ambiente spa con luce calda",
+        "category": "Corpo"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1696841212541-449ca29397cc?crop=entropy&cs=srgb&fm=jpg&ixid=M3w8NjA1ODh8MHwxfHNlYXJjaHwzfHxzcGElMjBtYXNzYWdlJTIwYm9keSUyMHRyZWF0bWVudCUyMHJlbGF4JTIwd2FybXxlbnwwfHx8fDE3OTAzMTgxNjN8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Trattamento corpo e massaggio con pietre calde/coppettazione",
+        "category": "Corpo"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?crop=entropy&cs=srgb&fm=jpg&ixid=M3w8NjA1ODh8MHwxfHNlYXJjaHw0fHxzcGElMjBtYXNzYWdlJTIwYm9keSUyMHRyZWF0bWVudCUyMHJlbGF4JTIwd2FybXxlbnwwfHx8fDE3OTAzMTgxNjN8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Massaggio olii rilassante e toni caldi avvolgenti",
+        "category": "Corpo"
+      }
+    ],
+    "viso": [
+      {
+        "url": "https://images.unsplash.com/photo-1643684391140-c5056cfd3436?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njl8MHwxfHNlYXJjaHwxfHxmYWNpYWwlMjB0cmVhdG1lbnQlMjBza2luY2FyZSUyMHNwYSUyMGFlc3RoZXRpY2lhbiUyMHdhcm18ZW58MHx8fHwxNzkwMzE4MTYzfDA&ixlib=rb-4.1.0&q=85",
+        "description": "Trattamento e massaggio viso professionale in centro estetico",
+        "category": "Viso"
+      },
+      {
+        "url": "https://images.pexels.com/photos/7446659/pexels-photo-7446659.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "description": "Estetista durante pulizia e trattamento viso rilassante",
+        "category": "Viso"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njl8MHwxfHNlYXJjaHwzfHxmYWNpYWwlMjB0cmVhdG1lbnQlMjBza2luY2FyZSUyMHNwYSUyMGFlc3RoZXRpY2lhbiUyMHdhcm18ZW58MHx8fHwxNzkwMzE4MTYzfDA&ixlib=rb-4.1.0&q=85",
+        "description": "Maschera e cura del viso con toni caldi naturali",
+        "category": "Viso"
+      }
+    ],
+    "ciglia": [
+      {
+        "url": "https://images.unsplash.com/photo-1589710751893-f9a6770ad71b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NDh8MHwxfHNlYXJjaHwxfHxleWVicm93JTIwbGFzaCUyMGxhbWluYXRpb24lMjBiZWF1dHklMjBnYXplJTIwZGV0YWlsfGVufDB8fHx8MTc5MDMxODE2M3ww&ixlib=rb-4.1.0&q=85",
+        "description": "Procedura di laminazione ed extension ciglia in cabina",
+        "category": "Sopracciglia e Ciglia"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1639629509821-c54cdd984227?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NDh8MHwxfHNlYXJjaHwzfHxleWVicm93JTIwbGFzaCUyMGxhbWluYXRpb24lMjBiZWF1dHklMjBnYXplJTIwZGV0YWlsfGVufDB8fHx8MTc5MDMxODE2M3ww&ixlib=rb-4.1.0&q=85",
+        "description": "Dettaglio sguardo, ciglia e sopracciglia curate e definite",
+        "category": "Sopracciglia e Ciglia"
+      },
+      {
+        "url": "https://images.pexels.com/photos/14001857/pexels-photo-14001857.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "description": "Primo piano occhi e sopracciglia perfette tono caldo",
+        "category": "Sopracciglia e Ciglia"
+      }
+    ],
+    "mani_e_piedi_reali": [
+      "/images/nail-1.jpg",
+      "/images/nail-2.jpg",
+      "/images/nail-3.jpg",
+      "/images/nail-4.jpg"
+    ]
+  },
+  "service_cards_structure": [
+    {
+      "id": "mani-piedi",
+      "title": "Mani e Piedi",
+      "image": "/images/nail-1.jpg",
+      "treatments": [
+        "Nail Art Personalizzata",
+        "Manicure Russo / Combi",
+        "Ricostruzione in Gel e Acrigel",
+        "Pedicure Estetico e Curativo",
+        "Smalto Semipermanente Long-Lasting"
+      ]
+    },
+    {
+      "id": "corpo",
+      "title": "Corpo",
+      "image": "https://images.unsplash.com/photo-1639162906614-0603b0ae95fd?crop=entropy&cs=srgb&fm=jpg&ixid=M3w8NjA1ODh8MHwxfHNlYXJjaHwyfHxzcGElMjBtYXNzYWdlJTIwYm9keSUyMHRyZWF0bWVudCUyMHJlbGF4JTIwd2FybXxlbnwwfHx8fDE3OTAzMTgxNjN8MA&ixlib=rb-4.1.0&q=85",
+      "treatments": [
+        "Massaggio Rilassante Aromatico",
+        "Massaggio con Coppettazione (Cupping Therapy)",
+        "Trattamenti Drenanti e Modellanti",
+        "Scrub Corpo Rigenerante ai Sali Naturali",
+        "Rituali Benessere Personalizzati"
+      ]
+    },
+    {
+      "id": "viso",
+      "title": "Viso",
+      "image": "https://images.unsplash.com/photo-1643684391140-c5056cfd3436?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njl8MHwxfHNlYXJjaHwxfHxmYWNpYWwlMjB0cmVhdG1lbnQlMjBza2luY2FyZSUyMHNwYSUyMGFlc3RoZXRpY2lhbiUyMHdhcm18ZW58MHx8fHwxNzkwMzE4MTYzfDA&ixlib=rb-4.1.0&q=85",
+      "treatments": [
+        "Pulizia del Viso Profonda",
+        "Trattamenti Anti-Age e Illuminanti",
+        "Peeling Enzimatico e Acido Glicolico",
+        "Massaggio Viso Connettivale",
+        "Hydra-Facial & Nutrimento Intenso"
+      ]
+    },
+    {
+      "id": "sopracciglia-ciglia",
+      "title": "Sopracciglia e Ciglia",
+      "image": "https://images.unsplash.com/photo-1589710751893-f9a6770ad71b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NDh8MHwxfHNlYXJjaHwxfHxleWVicm93JTIwbGFzaCUyMGxhbWluYXRpb24lMjBiZWF1dHklMjBnYXplJTIwZGV0YWlsfGVufDB8fHx8MTc5MDMxODE2M3ww&ixlib=rb-4.1.0&q=85",
+      "treatments": [
+        "Laminazione Ciglia con Cheratina",
+        "Laminazione e Architettura Sopracciglia",
+        "Tinta Ciglia e Sopracciglia alla Cheratina",
+        "Architettura e Baffetti/Epilazione Viso",
+        "Trattamento Nutriente Lash Botox"
+      ]
+    }
+  ],
+  "components_and_sections": [
+    "Header con logo, navigazione sticky in vetro opaco (backdrop-blur-md bg-[#F4F1EC]/80), e pulsante CTA Prenota",
+    "Hero Section con presentazione elegante di Emibi Beauté a Camucia - Cortona (AR)",
+    "Sezione Servizi con le 4 card (Mani e Piedi, Corpo, Viso, Sopracciglia e Ciglia) in aspect ratio 3:4 con hover zoom e lista trattamenti con spunta decorativa",
+    "Galleria Foto Reali per mostrare i lavori reali di Nail Art e del centro estetico",
+    "Sezione 'Perché Sceglierci' / Filosofia del centro",
+    "Modulo Prenotazione / Contatti e Mappa con indicazioni per Camucia - Cortona (AR)",
+    "Footer con orari, social media, contatti diretti WhatsApp e indicazioni stradali"
+  ],
+  "instructions_to_main_agent": {
+    "file_structure": "I file sono in formato Javascript (.js non .tsx). Modificare App.js o creare componenti .js.",
+    "colors_usage": "Sfondo principale #F4F1EC, sezioni alternate #E4DED4, testo, bordi e bottoni #603C26, stati hover #45301F.",
+    "testing_ids": "Tutti gli elementi interattivi e informativi chiave DEVONO includere l'attributo data-testid in kebab-case (es. data-testid='service-card-corpo', data-testid='book-button', data-testid='gallery-section').",
+    "image_aspect": "Utilizzare aspect-[3/4] con object-cover per le card dei 4 servizi.",
+    "toast_notification": "Usare sonner per le notifiche di prenotazione o invio messaggio."
+  },
+  "UNIVERSAL GUIDELINES FOR MAIN AGENT": [
+    "Evitare sfondi trasparenti nei menu a tendina o negli header senza blur/background.",
+    "Includere data-testid su tutti i bottoni, link, card e form.",
+    "Non usare emoji generiche come bottoni o icone principali; usare Lucide React o React Icons.",
+    "Includere micro-animazioni hover e transizioni fluide su bottoni e card."
+  ]
+}
