@@ -1,0 +1,14 @@
+// Cloudflare Workers: pubblica il sito statico in frontend/build.
+// "name" deve coincidere con il nome del Worker nella dashboard di Cloudflare.
+{
+  "name": "sito-emibi",
+  "compatibility_date": "2026-09-01",
+  "build": {
+    "command": "cd frontend && npx --yes yarn@1.22.22 install --frozen-lockfile && npx --yes yarn@1.22.22 build"
+  },
+  "assets": {
+    "directory": "./frontend/build",
+    // /servizi è gestita da index.html (routing lato client)
+    "not_found_handling": "single-page-application"
+  }
+}
